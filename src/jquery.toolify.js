@@ -1,7 +1,6 @@
 Toolify = {
   createTooltip: function(element){
     var title = $(element).attr('data-original-title');
-    $(element).attr('tipText', title).removeAttr('data-original-title');
     $('<p class="toolify_tooltip"></p>').html(title).appendTo('body')
     .show();
   },
@@ -9,7 +8,6 @@ Toolify = {
     $('.toolify_tooltip').css({ top: event.pageY, left: event.pageX })
   },
   removeTooltip: function(element){
-    $(element).attr('data-original-title', $(element).attr('tipText'));
     $('.toolify_tooltip').remove();
   }
 }
