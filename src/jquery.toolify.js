@@ -1,15 +1,26 @@
+Toolify = {
+  createTooltip: function(element){
+    var title = $(element).attr('data-original-title');
+    $(element).attr('tipText', title).removeAttr('data-original-title');
+    $('<p class="toolify_tooltip"></p>').html(title).appendTo('body')
+    .show();
+  },
+  positionTooltip: function(event){
+    $('.toolify_tooltip').css({ top: event.pageY, left: event.pageX })
+  },
+  removeTooltip: function(element){
+    $(element).attr('data-original-title', $(element).attr('tipText'));
+    $('.toolify_tooltip').remove();
+  }
+}
+
 jQuery.fn.toolify = function () {
   $(this).hover(function (){
-    var title = $(this).attr('data-original-title');
-    $(this).data('tipText', title).removeAttr('data-original-title');
-    $('<p class="toolify_tooltip"></p>').html(title).appendTo('body').show();
+    Toolify.createTooltip(this);
   }, function() {
-  // Hover out code
-    $(this).attr('data-original-title', $(this).data('tipText'));
-    $('.toolify_tooltip').remove();
+    Toolify.removeTooltip(this);
   }).mousemove(function(e) {
-    var mousex = e.pageX; //Get X coordinates
-    var mousey = e.pageY; //Get Y coordinates
-    $('.toolify_tooltip').css({ top: mousey, left: mousex })
+    Toolify.positionTooltip(e);
   });
 };
+

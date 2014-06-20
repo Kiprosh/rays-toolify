@@ -3,17 +3,26 @@ describe('Toolify', function(){
     beforeEach(function() {
       setUpHTMLFixture();
     });
-    it('should show paragraph on hover in', function(){
-      $("#check_tooltip").toolify();
-      $("#check_tooltip").trigger("hover");
-      // expect($('.toolify_tooltip').toBe("sample text"));
-      expect($('.toolify_tooltip')).toHaveText("sample text");
+
+    it('should create tooltip', function(){
+      Toolify.createTooltip($("#check_tooltip"));
+      expect($('#check_tooltip').attr('data-original-title')).toBeUndefined();
+      expect($('#check_tooltip').attr('tipText')).toEqual("sample text");
+      expect($('.toolify_tooltip').length).toEqual(1);
     });
-    it('should remove paragraph on hover out', function(){
-      
+
+    it('should position tooltip as per mousemove', function(){
+      obj= {pageY: 30, pageX: 40};
+      Toolify.createTooltip($("#check_tooltip"));
+      Toolify.positionTooltip(obj);
+      expect($('.toolify_tooltip').css("top")).toEqual("30px");
+      expect($('.toolify_tooltip').css("left")).toEqual("40px");
     });
-    it('should fill paragraph with original-title', function(){
-      
+
+    it('should remove tooltip', function(){
+      Toolify.removeTooltip($("#check_tooltip"));
+      expect($('#check_tooltip').attr('tipText')).toBeUndefined();
+      expect($('.toolify_tooltip').length).toEqual(0);
     });
   });
 });
