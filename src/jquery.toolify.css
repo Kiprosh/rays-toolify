@@ -5,4 +5,5 @@
   background-color:#FFFFCC;
   padding:5px;
   word-wrap: break-word;
+  z-index: 9999;
 }
